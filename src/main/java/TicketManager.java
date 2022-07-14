@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class TicketManager {
 
-   private TicketRepository repo = new TicketRepository();
+    private TicketRepository repo = new TicketRepository();
 /*
     public TicketManager(TicketRepository repo) {
         this.repo = repo;
@@ -14,7 +14,7 @@ public class TicketManager {
         return repo;
     }
 
-    public Ticket[] findAll(String from, String to) {
+    /*public Ticket[] findAll(String from, String to) {
         Arrays.sort(repo.getTickets());
         int lengthArray = 0;
         for (Ticket ticket : repo.getTickets()) {
@@ -31,8 +31,32 @@ public class TicketManager {
             }
         }
 
+        return tmp;
 
+    }*/
+
+    public Ticket[] findAll(String from, String to) {
+        int lengthArray = 0;
+        for (Ticket ticket : repo.getTickets()) {
+            String departureAirport = ticket.getDepartureAirport();
+            String arrivalAirport = ticket.getArrivalAirport();
+            if (departureAirport.equals(from) && arrivalAirport.equals(to)) {
+                lengthArray++;
+            }
+        }
+        Ticket[] tmp = new Ticket[lengthArray];
+        int count = 0;
+        for (Ticket ticket : repo.getTickets()) {
+            String departureAirport = ticket.getDepartureAirport();
+            String arrivalAirport = ticket.getArrivalAirport();
+            if (departureAirport.equals(from) && arrivalAirport.equals(to)) {
+                tmp[count] = ticket;
+                count++;
+            }
+        }
+        Arrays.sort(tmp);
         return tmp;
 
     }
+
 }
